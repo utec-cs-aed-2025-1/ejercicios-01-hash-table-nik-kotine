@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <unordered_set>
 #include "chainhash.h"
 
 using namespace std;
@@ -53,14 +52,48 @@ ListNode* findNode(ListNode* head, int value) {
 
 // TODO: implementar la conexión de las listas en el nodo con valor intersectVal
 // Si intersectVal no se encuentra, las listas permanecen separadas   
-void connectLists(ListNode* listA, ListNode* listB, int intersectVal) {
+void connectLists(ListNode*& listA, ListNode*& listB, int intersectVal) {
     //TODO: implemente aqui
+    
+    // encontramos el nodo en A
+    auto connectTo = findNode(listA, intersectVal);
+    // si ese nodo es nullptr, o listB es nullptr, no hacer nada
+    if (connectTo == nullptr || listB == nullptr) { return; }
+    // si listB ya tiene el valor de A, entonces solo basta con cambiar el valor
+    // notese que la firma de la funcion tiene pasa por referencia para que esto sea posible
+    if (listB->val == intersectVal) { listB = connectTo; return; }
+
+    // buscar el nodo en listB
+    while (listB && listB->next) {
+        // si lo encontramos, conectarlo con el nodo en A
+        if (listB->next->val == intersectVal) { listB->next = connectTo; return; }
+        listB = listB->next;
+    }
 }
 
 
 // TODO: implementar el algoritmo para encontrar la intersección de dos listas
 ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
-    // TODO: implemente aqui
+
+    // para usar el archivo chainhash, aqui creamos un mapa en vez de un set
+    // es nodo:char porque char es el tipo de dato mas pequenyo
+    ChainHash<ListNode*, char> visited;
+
+    // guardamos todos los valores de A en el mapa
+    while (headA != nullptr) {
+        // los valores realmente no importan, por eso los guardo como ' '
+        visited.set(headA, ' ');
+        headA = headA->next;
+    }
+
+    // iteramos B
+    while (headB != nullptr) {
+        // si encontramos el nodo actual en el mapa, retornamos ese
+        if (visited.contains(headB)) { return headB; }
+        headB = headB->next;
+    }
+
+    // si llegamos aqui es que no lo hemos encontrado
     return nullptr;
 }
 

@@ -67,5 +67,8 @@ g++ -o p1 p1.cpp
 ./p1
 ```
 
+## Demostración de funcionamiento de las soluciones:
 
-
+![output1](./img/ejer1-p1.PNG)
+![output2](./img/ejer1-p2.PNG)
+![output3](./img/ejer1-p3.PNG)
