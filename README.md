@@ -69,6 +69,11 @@ g++ -o p1 p1.cpp
 
 ## Demostración de funcionamiento de las soluciones:
 
+`p1.cpp`:
 ![output1](./img/ejer1-p1.PNG)
+
+`p2.cpp`:
 ![output2](./img/ejer1-p2.PNG)
+
+`p3.cpp`:
 ![output3](./img/ejer1-p3.PNG)
